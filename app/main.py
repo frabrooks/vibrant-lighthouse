@@ -11,9 +11,9 @@ from .database import engine, get_db
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
-origins = [
-    "http://localhost"
-]
+origins = ["*"]
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -21,6 +21,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
 
 @app.get("/")
 async def root():
