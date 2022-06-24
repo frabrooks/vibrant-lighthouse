@@ -6,9 +6,9 @@ from sqlalchemy.orm import Session
 
 # Local imports
 from . import models, schemas
-from .database import engine, get_db
+from .database import get_db
 
-models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
 
 origins = ["*"]
