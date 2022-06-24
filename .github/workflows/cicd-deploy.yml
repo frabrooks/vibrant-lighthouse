@@ -53,7 +53,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME/vibrant-lighthouse:latest }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/vibrant-lighthouse:latest
 
       # - name: Setup python
       #   uses: actions/setup-python@v3
