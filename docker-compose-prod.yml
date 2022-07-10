@@ -1,22 +1,22 @@
 version: "3"
 
 services:
-  api:
+
+  app:
     image: frabrooks/vibrant-lighthouse:latest
     depends_on: 
       postgres-db:
         condition: service_healthy
     ports:
-      - 80:8000
-    volumes:
-      - ./:/usr/src/app:ro
+      - :5001
     environment:
       - DATABASE_HOSTNAME=postgres-db
       - DATABASE_PORT=5432
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USERNAME=${DATABASE_USERNAME}
-    command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 5001"
+    restart: on-failure
 
   postgres-db:
     image: postgres
@@ -32,6 +32,27 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    restart: on-failure
+
+  nginx-server:
+    image: nginx:1.23.0-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d:ro
+      - ./data/certbot/www:/var/www/certbot:ro
+      - ./data/certbot/conf:/etc/letsencrypt:ro
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    restart: always
+  
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/www:/var/www/certbot:rw
+      - ./data/certbot/conf:/etc/letsencrypt:rw
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    restart: always
 
 volumes: 
   postgres-db:
