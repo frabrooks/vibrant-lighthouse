@@ -1,12 +1,9 @@
 FROM certbot/certbot
 
-# cron job default directory
+# Set working directory
 WORKDIR /root
     
 RUN apk update && apk upgrade --available && sync
-
-# Create logs dir
-# RUN mkdir /root/logs
 
 COPY cert-renew-script.sh .
 
