@@ -6,7 +6,7 @@ WORKDIR /root
 RUN apk update && apk upgrade --available && sync
 
 # Create logs dir
-RUN mkdir /root/logs
+# RUN mkdir /root/logs
 
 COPY cert-renew-script.sh .
 

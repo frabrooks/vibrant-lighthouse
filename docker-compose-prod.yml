@@ -51,7 +51,7 @@ services:
     volumes:
       - ./data/certbot/www:/var/www/certbot:rw
       - ./data/certbot/conf:/etc/letsencrypt:rw
-      - ./logs:/root/logs
+      - ./logs:/root/logs:rw
     restart: always
 
 volumes: 
