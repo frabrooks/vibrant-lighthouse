@@ -1,4 +1,3 @@
 # Single container cron example
-* * * * * /cron/cert-renew-script.sh  >> /etc/letsencrypt/foo 2>&1
-* * * * * pwd  >> /etc/letsencrypt/foo 2>&1
+* * * * * cert-renew-script.sh  >> /root/logs/certbot_cron 2>&1
 # -> Every 12 hours
