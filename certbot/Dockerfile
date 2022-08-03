@@ -1,7 +1,7 @@
 FROM certbot/certbot
 
 WORKDIR /cron
-
+    
 RUN apk update && apk upgrade --available && sync
 
 COPY cert-renew-script.sh .
@@ -19,5 +19,5 @@ RUN chmod 0644 /etc/cron.d/my-cron-file
 RUN crontab /etc/cron.d/my-cron-file
 
 # Creating entry point for cron 
-ENTRYPOINT ["cron", "-f"]
+ENTRYPOINT ["crond", "-f"]
 
