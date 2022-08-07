@@ -67,7 +67,7 @@ jobs:
             cat foo;
             cd app/src/;
             git pull;
-            sudo -E docker-compose -f docker-compose-prod.yml up --build;
+            sudo -E docker-compose -f docker-compose-prod.yml up --build --detach;
           '
 
 
