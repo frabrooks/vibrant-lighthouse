@@ -66,8 +66,8 @@ jobs:
             source /etc/profile.d/env-var.sh;
             cd app/src/;
             git pull;
-            sudo docker-compose pull;
-            sudo -E docker-compose -f docker-compose-prod.yml up --build --force-recreate --detach;
+            sudo docker-compose -f docker-compose-prod.yml pull api;
+            sudo -E docker-compose -f docker-compose-prod.yml up --build --detach;
             sudo docker image prune -af;
           '
           rm private_key
