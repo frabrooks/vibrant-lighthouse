@@ -56,9 +56,13 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/vibrant-lighthouse:latest
 
       - name: Deploy to EC2 via ssh
+          env:
+            PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY  }}
+            HOSTNAME : ${{ secrets.EC2_HOSTNAME  }}
+            USER_NAME : ${{ secrets.EC2_USERNAME  }}
         run: |
-          echo "${{ secrets.EC2_PRIVATE_KEY }}" > private_key && chmod 600 private_key
-          ssh  -o StrictHostKeyChecking=no -i private_key ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOSTNAME }} '
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh  -o StrictHostKeyChecking=no -i private_key ${ USER_NAME }@${{ HOSTNAME }} '
             cd app/src/
             git pull
             sudo -E docker-compose -f docker-compose-prod.yml up --build
