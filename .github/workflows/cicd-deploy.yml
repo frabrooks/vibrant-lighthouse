@@ -64,7 +64,7 @@ jobs:
           script: |
             cd app/src/
             git pull
-            sudo docker-compose -f docker-compose-prod.yml up --build
+            sudo -E docker-compose -f docker-compose-prod.yml up --build
 
       # - name: Setup python
       #   uses: actions/setup-python@v3
