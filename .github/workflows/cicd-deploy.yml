@@ -68,6 +68,7 @@ jobs:
             git pull;
             sudo docker-compose pull
             sudo -E docker-compose -f docker-compose-prod.yml up --build --detach;
+            sudo docker image prune -af
           '
           rm private_key
 
