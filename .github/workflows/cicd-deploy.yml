@@ -62,10 +62,13 @@ jobs:
 
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh  -T -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
-          cat foo
-          printenv
-          exit
+          ssh  -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+            source /etc/profile.d/env-var.sh;
+            cat foo;
+            cd app/src/;
+            git pull;
+            sudo -E docker-compose -f docker-compose-prod.yml up --build;
+          '
 
 
         # 'bash -l -c "
