@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  app:
+  api:
     image: frabrooks/vibrant-lighthouse:latest
     depends_on: 
       postgres-db:

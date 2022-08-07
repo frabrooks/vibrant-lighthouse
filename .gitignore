@@ -4,3 +4,4 @@ venv/
 .vscode
 .flake8
 docker-compose-dev.yml
+userdata.txt
