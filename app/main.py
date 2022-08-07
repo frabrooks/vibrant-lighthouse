@@ -25,7 +25,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return "Covey-four-quad-todo API v.1.0.1"
+    return "Covey-four-quad-todo API v.1.0.2"
 
 
 @app.get("/todo", status_code=status.HTTP_200_OK, response_model=List[schemas.GetTodo])
