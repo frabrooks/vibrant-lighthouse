@@ -63,7 +63,7 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh  -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} 'bash -l -c "
-            cd app/src/ && git pull && sudo -E docker-compose -f docker-compose-prod.yml up --build "
+            cd app/src/ && git pull && sudo -E docker-compose -f docker-compose-prod.yml up --build && exit"
           '
         # with: 
         #   host: ${{ secrets.EC2_HOSTNAME }}
