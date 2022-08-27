@@ -8,6 +8,8 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 from .database import get_db
 
+import datetime
+
 
 app = FastAPI()
 
@@ -31,7 +33,8 @@ async def root():
 @app.get("/todo", status_code=status.HTTP_200_OK, response_model=List[schemas.GetTodo])
 def get_todos(db: Session = Depends(get_db)):
     todos = db.query(models.Todo).all()
-    return todos + ['todos']
+    td = schemas.GetTodo(id='123123', title='Test todo', important=False, due_soon=False, created_at=datetime.datetime.now())
+    return todos + [td]
 
 
 @app.post("/todo", status_code=status.HTTP_201_CREATED)
