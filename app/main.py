@@ -31,7 +31,7 @@ async def root():
 @app.get("/todo", status_code=status.HTTP_200_OK, response_model=List[schemas.GetTodo])
 def get_todos(db: Session = Depends(get_db)):
     todos = db.query(models.Todo).all()
-    return todos
+    return todos + ['todos']
 
 
 @app.post("/todo", status_code=status.HTTP_201_CREATED)
