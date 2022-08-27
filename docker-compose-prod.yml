@@ -3,7 +3,7 @@ version: "3"
 services:
 
   api:
-    image: frabrooks/vibrant-lighthouse:latest
+    image: frabrooks/vibrant-lighthouse-api:latest
     depends_on: 
       postgres-db:
         condition: service_healthy
@@ -40,17 +40,17 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./data/nginx/conf:/etc/nginx/conf.d:ro
-      - ./data/certbot/www:/var/www/certbot:ro
-      - ./data/certbot/conf:/etc/nginx/ssl:ro
+      - ./api/data/nginx/conf:/etc/nginx/conf.d:ro
+      - ./api/data/certbot/www:/var/www/certbot:ro
+      - ./api/data/certbot/conf:/etc/nginx/ssl:ro
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     restart: always
   
   certbot:
     build: ./certbot
     volumes:
-      - ./data/certbot/www:/var/www/certbot:rw
-      - ./data/certbot/conf:/etc/letsencrypt:rw
+      - ./api/data/certbot/www:/var/www/certbot:rw
+      - ./api/data/certbot/conf:/etc/letsencrypt:rw
       - ./logs:/var/log/cron:rw
     restart: always
 
