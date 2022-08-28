@@ -8,9 +8,6 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 from .database import get_db
 
-import datetime
-
-
 app = FastAPI()
 
 origins = ["*"]
