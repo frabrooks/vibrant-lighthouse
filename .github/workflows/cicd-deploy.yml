@@ -73,10 +73,14 @@ jobs:
           ssh  -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             source /etc/profile.d/env-var.sh;
             cd app/src/;
+            echo "Acquiring latest from git...";
             git reset --hard HEAD;
             git pull;
+            echo "Pulling containers from Docker hub...";
             sudo docker-compose -f docker-compose-prod.yml pull api;
+            echo "Building and spinning up containers...";
             sudo -E docker-compose -f docker-compose-prod.yml up --build --detach;
+            echo "Pruning leftover containers...";
             sudo docker system prune -af;
           '
           rm private_key

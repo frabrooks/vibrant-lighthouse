@@ -55,7 +55,7 @@ services:
       - ./data/certbot/www:/var/www/certbot:ro
       - ./data/certbot/conf:/etc/nginx/ssl:ro
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-    restart: no
+    # restart: no
   
   certbot:
     build: ./certbot
@@ -63,7 +63,7 @@ services:
       - ./data/certbot/www:/var/www/certbot:rw
       - ./data/certbot/conf:/etc/letsencrypt:rw
       - ./logs/api:/var/log/cron:rw
-    restart: no
+    # restart: no
 
 volumes: 
   postgres-db:
