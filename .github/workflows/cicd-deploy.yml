@@ -81,11 +81,11 @@ jobs:
             echo "Building and spinning up containers...";
             sudo -E docker-compose -f docker-compose-prod.yml up --build --detach;
             echo "Pruning leftover containers...";
-            sudo docker system prune -af;
+            
           '
           rm private_key
 
-      # - name: Setup python
+      # - name: Setup python sudo docker system prune -af;
       #   uses: actions/setup-python@v3
       #   with:
       #     python-version: ${{ matrix.python-version }}
