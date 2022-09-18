@@ -34,7 +34,7 @@ jobs:
         #python-version: ["3.9", "3.10"]
 
     name: Build, push, and deploy w/ Python
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Steps represent a sequence of tasks that will be executed as part of the job 
     steps:
         
       - name: Checkout
