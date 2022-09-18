@@ -1,0 +1,21 @@
+
+<div style="display: flex; flex-direction: column; align-items: center; width: 540px;">
+
+    <div style="margin: 2rem 0;">API Status: &nbsp; {{ status }}</div>
+
+    <button (click)="getTodos()" class="button getButton">Get Todos</button>
+
+    <div *ngFor="let todo of todos; let i = index" class="todo">
+        <div [class.notFirst]="i > 0" >{{ todo.title }}</div>
+        <div>{{ todo.created_at | date:'medium' }}</div>
+    </div>
+
+</div>
+
+<div style="display: flex; margin: 4rem 0; align-items: center; justify-content: center; width: 540px;">
+    <input (keydown.enter)="postTodo(newTodo)" type="text" id="todoInput" name="todoInput" [(ngModel)]="newTodo">
+    <button (click)="postTodo(newTodo)" class="button postButton" [disabled]="! newTodo">Post Todo</button>
+</div>
+
+
+

@@ -19,6 +19,12 @@ RUN chmod 0644 /etc/cron.d/my-cron-file
 # Running crontab to add my-cron-file cron jobs to cron tab
 RUN crontab /etc/cron.d/my-cron-file
 
-# Creating entry point for cron 
-ENTRYPOINT ["crond", "-f"]
+# Copy entrypoint script
+COPY ./docker-entry-point.sh /
+
+# Copy ssl.conf for nginx SSL certificate configuration
+COPY ./ssl.conf /
+
+# Entry point
+ENTRYPOINT ["/docker-entry-point.sh"]
 

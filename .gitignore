@@ -5,3 +5,4 @@ venv/
 .flake8
 docker-compose-dev.yml
 userdata.txt
+node_modules

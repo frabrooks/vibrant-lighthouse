@@ -2,6 +2,12 @@ version: "3"
 
 services:
 
+  ng-app:
+    image: frabrooks/vibrant-lighthouse-ng-app:latest
+    depends_on: 
+      api:
+        condition: service_healthy
+
   api:
     image: frabrooks/vibrant-lighthouse-api:latest
     depends_on: 
@@ -16,6 +22,11 @@ services:
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USERNAME=${DATABASE_USERNAME}
     command: bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 5001"
+    healthcheck:
+      test: curl --fail -s https://api.eisentodo.com || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 5
     restart: on-failure
 
   postgres-db:
@@ -40,19 +51,19 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./api/data/nginx/conf:/etc/nginx/conf.d:ro
-      - ./api/data/certbot/www:/var/www/certbot:ro
-      - ./api/data/certbot/conf:/etc/nginx/ssl:ro
+      - ./data/nginx/conf:/etc/nginx/conf.d:ro
+      - ./data/certbot/www:/var/www/certbot:ro
+      - ./data/certbot/conf:/etc/nginx/ssl:ro
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-    restart: always
+    restart: no
   
   certbot:
-    build: ./api/certbot
+    build: ./certbot
     volumes:
-      - ./api/data/certbot/www:/var/www/certbot:rw
-      - ./api/data/certbot/conf:/etc/letsencrypt:rw
+      - ./data/certbot/www:/var/www/certbot:rw
+      - ./data/certbot/conf:/etc/letsencrypt:rw
       - ./logs/api:/var/log/cron:rw
-    restart: always
+    restart: no
 
 volumes: 
   postgres-db:

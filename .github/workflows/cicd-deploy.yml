@@ -58,6 +58,14 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/vibrant-lighthouse-api:latest
 
+      - name: Build and push angular app image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./ng-app
+          file: ./ng-app/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/vibrant-lighthouse-ng-app:latest
+
       - name: Deploy to EC2 via ssh
 
         run: |
