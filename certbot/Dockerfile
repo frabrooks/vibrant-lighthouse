@@ -11,7 +11,7 @@ COPY cert-renew-script.sh .
 RUN chmod +x cert-renew-script.sh .
 
 # Adding crontab to the appropriate location
-ADD crontab /etc/cron.d/my-cron-file
+COPY crontab /etc/cron.d/my-cron-file
 
 # Giving permission to crontab file
 RUN chmod 0644 /etc/cron.d/my-cron-file
@@ -20,10 +20,13 @@ RUN chmod 0644 /etc/cron.d/my-cron-file
 RUN crontab /etc/cron.d/my-cron-file
 
 # Copy entrypoint script
-COPY ./docker-entry-point.sh /
+COPY docker-entry-point.sh /
 
 # Copy ssl.conf for nginx SSL certificate configuration
-COPY ./ssl.conf /
+COPY ssl.conf /
+
+# Set permissions for ssl.conf
+RUN chmod 0644 /ssl.conf
 
 # Entry point
 ENTRYPOINT ["/docker-entry-point.sh"]
