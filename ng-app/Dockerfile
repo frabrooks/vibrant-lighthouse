@@ -1,5 +1,5 @@
 #stage 1
-FROM node:latest as node
+FROM node:alpine as node
 
 WORKDIR /usr/src/app
 
