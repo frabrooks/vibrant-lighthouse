@@ -18,17 +18,17 @@ export class TodoTestComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<string>('http://localhost:8000/').subscribe((status: string) => this.status = status);
-    this.http.get<Array<Todo>>('http://localhost:8000/todo').subscribe((todos: Array<Todo>) => this.todos = todos);
+    this.http.get<string>('https://api.eisentodo.com/').subscribe((status: string) => this.status = status);
+    this.http.get<Array<Todo>>('https://api.eisentodo.com/todo').subscribe((todos: Array<Todo>) => this.todos = todos);
   }
 
   public getTodos(): void {
-    this.http.get<Array<Todo>>('http://localhost:8000/todo').subscribe((todos: Array<Todo>) => this.todos = todos);
+    this.http.get<Array<Todo>>('https://api.eisentodo.com/todo').subscribe((todos: Array<Todo>) => this.todos = todos);
   }
 
   public postTodo(title: string): void {
     if (! this.newTodo) return;
-    this.http.post<Todo>('http://localhost:8000/todo', { title: title, due_soon: false, important: false, archived: false }).subscribe(
+    this.http.post<Todo>('https://api.eisentodo.com/todo', { title: title, due_soon: false, important: false, archived: false }).subscribe(
       () => {
         this.newTodo = "";
         this.getTodos();

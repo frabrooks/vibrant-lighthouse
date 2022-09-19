@@ -81,7 +81,7 @@ jobs:
             echo "Building and spinning up containers...";
             sudo -E docker-compose -f docker-compose-prod.yml up --build --detach;
             echo "Reloading nginx...";
-            sudo -E docker-compose -f docker-compose-prod.yml exec nginx-server nginx -s reload;
+            sudo -E docker-compose -f docker-compose-prod.yml exec -T nginx-server nginx -s reload;
             echo "Pruning leftover containers...";
             sudo docker system prune -af;
           '
