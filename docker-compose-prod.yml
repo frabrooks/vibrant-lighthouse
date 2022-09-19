@@ -2,13 +2,13 @@ version: "3"
 
 services:
 
-  ng-app:
-    image: frabrooks/vibrant-lighthouse-ng-app:latest
-    # depends_on: 
-    #   api:
-    #     condition: service_healthy
-    volumes: 
-      - ./ng-app/dist:/usr/src/app/dist
+  # ng-app:
+  #   image: frabrooks/vibrant-lighthouse-ng-app:latest
+  #   # depends_on: 
+  #   #   api:
+  #   #     condition: service_healthy
+  #   volumes: 
+  #     - ./ng-app/dist:/usr/src/app/dist
 
   api:
     image: frabrooks/vibrant-lighthouse-api:latest
@@ -48,23 +48,22 @@ services:
     restart: on-failure
 
   nginx-server:
-    image: nginx:1.23.0-alpine
+    build: ./nginx
     ports:
       - 80:80
       - 443:443
     volumes:
-      - ./ng-app/dist:/usr/share/nginx/html
-      - ./data/nginx/conf:/etc/nginx/conf.d:ro
-      - ./data/certbot/www:/var/www/certbot:ro
-      - ./data/certbot/conf:/etc/nginx/ssl:ro
+      - ./nginx/conf:/etc/nginx/conf.d:ro
+      - ./certbot/www:/var/www/certbot:ro
+      - ./certbot/conf:/etc/nginx/ssl:ro
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     restart: on-failure
   
   certbot:
     build: ./certbot
     volumes:
-      - ./data/certbot/www:/var/www/certbot:rw
-      - ./data/certbot/conf:/etc/letsencrypt:rw
+      - ./certbot/www:/var/www/certbot:rw
+      - ./certbot/conf:/etc/letsencrypt:rw
       - ./logs/api:/var/log/cron:rw
     restart: on-failure
 
