@@ -2,14 +2,6 @@ version: "3"
 
 services:
 
-  # ng-app:
-  #   image: frabrooks/vibrant-lighthouse-ng-app:latest
-  #   # depends_on: 
-  #   #   api:
-  #   #     condition: service_healthy
-  #   volumes: 
-  #     - ./ng-app/dist:/usr/src/app/dist
-
   api:
     image: frabrooks/vibrant-lighthouse-api:latest
     depends_on: 
