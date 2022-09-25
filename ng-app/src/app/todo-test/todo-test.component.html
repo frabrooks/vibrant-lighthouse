@@ -5,9 +5,11 @@
 
     <button (click)="getTodos()" class="button getButton">Get Todos</button>
 
-    <div *ngFor="let todo of todos; let i = index" class="todo">
-        <div [class.notFirst]="i > 0" >{{ todo.title }}</div>
-        <div>{{ todo.created_at | date:'medium' }}</div>
+    <div class="todo_container">
+        <div *ngFor="let todo of todos; let i = index" class="todo">
+            <div [class.notFirst]="i > 0" >{{ todo.title }}</div>
+            <div>{{ todo.created_at | date:'medium' }}</div>
+        </div>
     </div>
 
 </div>

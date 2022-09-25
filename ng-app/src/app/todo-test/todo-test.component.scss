@@ -4,16 +4,23 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 500px;
+    width: 448px;
     box-shadow: 0 4px 8px 0 rgba(25,118,210,0.6);
-    transition: 0.3s;
-    margin: 1rem 0;
+    transition: 0.3s; 
+    margin: 16px 16px;
     background: white;
 
     & > * {
         width: 100%;
         text-align: center;
         padding: 0.5rem 0;
+    }
+
+    &_container {
+        width: 960px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 32px 0 -16px;
     }
 }
 
