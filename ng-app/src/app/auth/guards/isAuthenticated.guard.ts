@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, UrlTree } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { CognitoService } from '../cognito.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class IsAuthenticatedGuard implements CanActivate {
+export class IsAuthenticatedGuard  {
   constructor(private cognitoService: CognitoService, public router: Router) {}
 
   canActivate(): boolean | UrlTree {
