@@ -12,6 +12,7 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { SplashComponent } from './core/splash/splash.component';
 import { TodoComponent } from './todo/views/todo/todo.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -26,5 +27,6 @@ import { TodoComponent } from './todo/views/todo/todo.component';
         AppRoutingModule,
         CommonModule,
         FormsModule,
-        ReactiveFormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        ReactiveFormsModule,
+        StoreModule.forRoot({}, {})], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
