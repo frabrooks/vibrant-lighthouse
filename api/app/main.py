@@ -2,16 +2,19 @@
 from typing import List
 from fastapi import FastAPI, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_cognito import CognitoAuth, CognitoSettings, CognitoToken
 from sqlalchemy.orm import Session
 
 # Local imports
 from . import models, schemas
+from .config import settings
 from .database import get_db
 
-app = FastAPI()
-
+cognito_eu = CognitoAuth(settings=CognitoSettings.from_global_settings(settings))
 origins = ["*"]
 
+
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -40,3 +43,8 @@ def add_todos(todo: schemas.PostTodo, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_todo)
     return new_todo
+
+
+@app.get("/auth-test")
+def auth_test(auth: CognitoToken = Depends(cognito_eu.auth_required)):
+    return {"message": "Congratulations! You are authorized."}

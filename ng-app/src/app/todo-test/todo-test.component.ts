@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { Todo } from '../todo.interface';
 
@@ -13,7 +13,7 @@ export class TodoTestComponent implements OnInit {
 
   public status: string = ""; 
   public todos: Array<Todo> = [];
-  public formControl: FormControl = new FormControl();
+  public formControl: UntypedFormControl = new UntypedFormControl();
   public newTodo: string = "";
 
   constructor(private http: HttpClient) { }
