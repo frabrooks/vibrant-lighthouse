@@ -39,7 +39,7 @@ def get_todos(db: Session = Depends(get_db)):
 
 @app.post("/todo", status_code=status.HTTP_201_CREATED)
 def add_todos(todo: schemas.PostTodo, db: Session = Depends(get_db)):
-    new_todo = models.Todo(**todo.dict())
+    new_todo = models.Todo(**todo.model_dump())
     db.add(new_todo)
     db.commit()
     db.refresh(new_todo)

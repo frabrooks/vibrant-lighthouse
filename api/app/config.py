@@ -1,6 +1,7 @@
 from typing import Any, Dict
 
-from pydantic import BaseSettings, validator
+from pydantic import Field, model_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -13,23 +14,23 @@ class Settings(BaseSettings):
     cognito_region: str
     cognito_userpool_id: str
     cognito_app_client_id: str
-    userpools: Dict[str, Dict[str, Any]] = {}
+    userpools: Dict[str, Dict[str, Any]] = Field(default_factory=dict)
     check_expiration: bool = True
     jwt_header_prefix: str = "Bearer"
     jwt_header_name: str = "Authorization"
 
-    @validator("userpools", pre=False, always=True)
-    def build_userpools(cls, value: Dict[str, Dict[str, Any]], values: Dict[str, Any]):
-        return {
+    @model_validator(mode="after")
+    def build_userpools(self):
+        self.userpools = {
             "eu": {
-                "region": values["cognito_region"],
-                "userpool_id": values["cognito_userpool_id"],
-                "app_client_id": values["cognito_app_client_id"],
+                "region": self.cognito_region,
+                "userpool_id": self.cognito_userpool_id,
+                "app_client_id": self.cognito_app_client_id,
             }
         }
+        return self
 
-    class Config:
-        env_file = '.env'
+    model_config = SettingsConfigDict(env_file=".env")
 
 
 settings = Settings()

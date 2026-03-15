@@ -1,16 +1,15 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 
 class GetTodo(BaseModel):
-    id: str
+    id: int
     title: str
     important: bool
     due_soon: bool
     created_at: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class PostTodo(BaseModel):
@@ -19,18 +18,12 @@ class PostTodo(BaseModel):
     due_soon: bool
     archived: bool
 
-    class Config:
-        orm_mode = True
-
 
 class UpdateTodo(BaseModel):
     id: int
     important: bool
     due_soon: bool
     archived: bool
-
-    class Config:
-        orm_mode = True
 
 
 class DeleteTodo(BaseModel):
