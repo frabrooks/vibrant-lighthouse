@@ -1,24 +1,24 @@
-name: Build Images And Deploy API
+name: Build Images And Deploy App
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "api/**"
-      - "database/**"
-      - "ng-app/**"
-      - "docker-compose.deploy.yml"
-      - "docker-compose.dev.yml"
-      - ".github/workflows/cicd-deploy.yml"
-      - ".env.example"
-      - ".dockerignore"
-      - "DEPLOYMENT.md"
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - "api/**"
+  #     - "database/**"
+  #     - "ng-app/**"
+  #     - "docker-compose.deploy.yml"
+  #     - "docker-compose.dev.yml"
+  #     - ".github/workflows/cicd-deploy.yml"
+  #     - ".env.example"
+  #     - ".dockerignore"
+  #     - "DEPLOYMENT.md"
   workflow_dispatch:
 
 jobs:
-  deploy-api:
-    name: Build images, migrate, and deploy FastAPI
+  deploy-app:
+    name: Build images, migrate, and deploy API and frontend
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -78,12 +78,14 @@ jobs:
           overwrite: true
           strip_components: 0
 
-      - name: Run migrations and deploy API on VM
+      - name: Run migrations and deploy app on VM
         uses: appleboy/ssh-action@v1.2.4
         env:
           REMOTE_DIR: ${{ env.REMOTE_DIR }}
-          DOCKER_IMAGE: ${{ env.API_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          API_IMAGE: ${{ env.API_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          FRONTEND_IMAGE: ${{ env.FRONTEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           API_HOST: ${{ secrets.API_HOST }}
+          SPA_HOST: ${{ secrets.SPA_HOST }}
           PLATFORM_NETWORK: ${{ secrets.PLATFORM_NETWORK }}
           DATABASE_HOSTNAME: ${{ secrets.DATABASE_HOSTNAME }}
           DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
@@ -94,6 +96,9 @@ jobs:
           COGNITO_REGION: ${{ secrets.COGNITO_REGION }}
           COGNITO_USERPOOL_ID: ${{ secrets.COGNITO_USERPOOL_ID }}
           COGNITO_APP_CLIENT_ID: ${{ secrets.COGNITO_APP_CLIENT_ID }}
+          FRONTEND_API_URL: ${{ secrets.FRONTEND_API_URL }}
+          FRONTEND_COGNITO_USER_POOL_ID: ${{ secrets.FRONTEND_COGNITO_USER_POOL_ID }}
+          FRONTEND_COGNITO_APP_CLIENT_ID: ${{ secrets.FRONTEND_COGNITO_APP_CLIENT_ID }}
           GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
           GHCR_PAT: ${{ secrets.GHCR_PAT }}
         with:
@@ -101,7 +106,7 @@ jobs:
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.VM_SSH_KEY }}
           port: ${{ secrets.VM_SSH_PORT || '22' }}
-          envs: REMOTE_DIR,DOCKER_IMAGE,API_HOST,PLATFORM_NETWORK,DATABASE_HOSTNAME,DATABASE_PORT,DATABASE_NAME,DATABASE_USERNAME,DATABASE_PASSWORD,DATABASE_SCHEMA,COGNITO_REGION,COGNITO_USERPOOL_ID,COGNITO_APP_CLIENT_ID,GHCR_USERNAME,GHCR_PAT
+          envs: REMOTE_DIR,API_IMAGE,FRONTEND_IMAGE,API_HOST,SPA_HOST,PLATFORM_NETWORK,DATABASE_HOSTNAME,DATABASE_PORT,DATABASE_NAME,DATABASE_USERNAME,DATABASE_PASSWORD,DATABASE_SCHEMA,COGNITO_REGION,COGNITO_USERPOOL_ID,COGNITO_APP_CLIENT_ID,FRONTEND_API_URL,FRONTEND_COGNITO_USER_POOL_ID,FRONTEND_COGNITO_APP_CLIENT_ID,GHCR_USERNAME,GHCR_PAT
           script: |
             set -eu
 
@@ -109,7 +114,9 @@ jobs:
 
             cat > "$REMOTE_DIR/.env" <<EOF
             API_HOST=$API_HOST
-            DOCKER_IMAGE=$DOCKER_IMAGE
+            SPA_HOST=$SPA_HOST
+            API_IMAGE=$API_IMAGE
+            FRONTEND_IMAGE=$FRONTEND_IMAGE
             PLATFORM_NETWORK=$PLATFORM_NETWORK
             DATABASE_HOSTNAME=$DATABASE_HOSTNAME
             DATABASE_PORT=$DATABASE_PORT
@@ -120,6 +127,9 @@ jobs:
             COGNITO_REGION=$COGNITO_REGION
             COGNITO_USERPOOL_ID=$COGNITO_USERPOOL_ID
             COGNITO_APP_CLIENT_ID=$COGNITO_APP_CLIENT_ID
+            FRONTEND_API_URL=$FRONTEND_API_URL
+            FRONTEND_COGNITO_USER_POOL_ID=$FRONTEND_COGNITO_USER_POOL_ID
+            FRONTEND_COGNITO_APP_CLIENT_ID=$FRONTEND_COGNITO_APP_CLIENT_ID
             EOF
 
             docker network inspect "$PLATFORM_NETWORK" >/dev/null 2>&1 || docker network create --driver bridge "$PLATFORM_NETWORK"
@@ -127,6 +137,6 @@ jobs:
             echo "$GHCR_PAT" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
 
             cd "$REMOTE_DIR"
-            docker compose -f docker-compose.deploy.yml pull api
+            docker compose -f docker-compose.deploy.yml pull api frontend
             docker compose -f docker-compose.deploy.yml run --rm api alembic -c database/alembic.ini upgrade head
-            docker compose -f docker-compose.deploy.yml up -d api
+            docker compose -f docker-compose.deploy.yml up -d api frontend
