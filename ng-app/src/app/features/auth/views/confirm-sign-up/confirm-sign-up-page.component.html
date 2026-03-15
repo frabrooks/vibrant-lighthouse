@@ -1,0 +1,52 @@
+<div style="margin-bottom: 4rem;"></div>
+<grid>
+  <grid-row>
+    <grid-col span="8" lg="0">
+    </grid-col>
+    <grid-col span="8" lg="24">
+      <div class="card">
+        <h1>Confirm your email address</h1>
+
+        @if (!(vm$ | async)?.username) {
+          <p>Enter your email address and the confirmation code we sent you.</p>
+          <fb-cva-text-input
+            [label]="'Email address'"
+            [id]="'email-input'"
+            [name]="'email-input'"
+            [placeholder]="'Email address'"
+            [maxLength]="40"
+            [required]="true"
+            [autocomplete]="'off'"
+            [(ngModel)]="confirmSignUpInput.username"
+          ></fb-cva-text-input>
+          <div style="margin-bottom: 1rem;"></div>
+        } @else {
+          <p>Enter the confirmation code we sent to {{ (vm$ | async)?.username }}.</p>
+        }
+
+        <fb-cva-text-input
+          [label]="'Confirmation code'"
+          [id]="'confirmation-code-input'"
+          [name]="'confirmation-code-input'"
+          [placeholder]="'Confirmation code'"
+          [maxLength]="12"
+          [required]="true"
+          [autocomplete]="'off'"
+          [(ngModel)]="confirmSignUpInput.confirmationCode"
+        ></fb-cva-text-input>
+        <div style="margin-bottom: 1rem;"></div>
+        <div style="margin-bottom: 1rem;"></div>
+        <button type="button" (click)="confirmSignup()" class="btn btn-success" [disabled]="loading || !confirmSignUpInput.confirmationCode">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+          Confirm
+        </button>
+      </div>
+    </grid-col>
+    <grid-col span="8" md="0">
+      <div *ngIf="vm$ | async as vm">
+        {{ vm | json }}
+      </div>
+    </grid-col>
+  </grid-row>
+</grid>
+

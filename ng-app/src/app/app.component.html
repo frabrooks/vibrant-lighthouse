@@ -1,17 +1,28 @@
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <img
-    width="40"
-    alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-  />
-  <span>{{ appName }}</span>
-  <div class="spacer"></div>
-  <div>Tok: {{ (auth$ | async)?.accessToken?.jwtToken.slice(50,60) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-  <div>Authenticated: {{ isAuthenticated$ | async }}   <button *ngIf="!(isAuthenticated$ | async)" (click)="createAccount()">Create Account</button> <button *ngIf="!(isAuthenticated$ | async)" (click)="signIn()">Sign In</button><button *ngIf="(isAuthenticated$ | async)" (click)="signOut()">Sign Out</button></div>
-  <div id="user-container" *ngIf="(auth$ | async)?.user?.attributes?.email as email">{{ email }}</div>
-</div>
+<header>
+    <grid>
+      <grid-row>
+        <grid-col span="24">
+          <div class="toolbar" role="banner">
+            <img
+              width="40"
+              alt="Angular Logo"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+            />
+            <span>{{ appName }}</span>
+            <div class="spacer"></div>
+            <span>Authenticated: {{ isAuthenticated$ | async }}</span>
+            <button *ngIf="!(isAuthenticated$ | async)" (click)="createAccount()">Create Account</button>
+            <button *ngIf="!(isAuthenticated$ | async)" (click)="signIn()">Sign In</button>
+            <button  (click)="signOut()">Sign Out</button>
+            <button (click)="confirmAccount()">Confirm account</button>
+            <div id="user-container" *ngIf="(email$ | async)">{{ (email$ | async) }}</div>
+          </div>
+        </grid-col>
+      </grid-row>
+    </grid>
+</header>
 
+  
 <div class="content" role="main">
 
   <router-outlet></router-outlet>
@@ -27,17 +38,9 @@
 <!-- Footer -->
 <footer>
   <div class="wrapper">
-    App created by Fraser Liam Brooks at&nbsp;
+    App created by Fraser Brooks &#64;
     <a href="https://fraserbrooks.io" target="_blank" rel="noopener">fraserbrooks.io</a>&nbsp;
     (<a href="mailto:contact@fraserbrooks.io" target="_blank" rel="noopener">contact&#64;fraserbrooks.io</a>)  
   </div>
 </footer>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 

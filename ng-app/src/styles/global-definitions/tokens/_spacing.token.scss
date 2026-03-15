@@ -1,0 +1,24 @@
+@use '../functions/calc-rem' as *;
+
+$v-spacing-xxxs: calcRem(4px);
+$v-spacing-xxs: calcRem(8px);
+$v-spacing-xs: calcRem(12px);
+$v-spacing-sm: calcRem(16px);
+$v-spacing-md: calcRem(24px);
+$v-spacing-lg: calcRem(32px);
+$v-spacing-xl: calcRem(48px);
+$v-spacing-xxl: calcRem(64px);
+$v-spacing-xxxl: calcRem(96px);
+$v-spacing-xxxxl: calcRem(128px);
+$v-spacing-xxxxxl: calcRem(192px);
+
+$h-spacing-xxxs: 2px;
+$h-spacing-xxs: 4px;
+$h-spacing-xs: 6px;
+$h-spacing-sm: 8px;
+$h-spacing-md: 12px;
+$h-spacing-lg: 16px;
+$h-spacing-xl: 24px;
+$h-spacing-xxl: 32px;
+$h-spacing-xxxl: 48px;
+$h-spacing-xxxxl: 64px;

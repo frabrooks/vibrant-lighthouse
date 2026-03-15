@@ -1,0 +1,59 @@
+
+
+<grid>
+  <grid-row>
+    <grid-col>
+      <h1>splash component title</h1>
+    </grid-col>
+  </grid-row>
+
+  <grid-row no-row-gap>
+    <grid-col span="12">
+      <p>splash works!</p>
+      <fb-cva-text-area
+        [label]="'Text area'"
+        [id]="'text-area'"
+        [name]="'text-area'"
+        [placeholder]="'Enter text here'"
+        [heightMode]="'auto'"
+        [(ngModel)]="textAreaValue"
+      ></fb-cva-text-area>
+      <fb-cva-text-area
+        [label]="'Text area'"
+        [id]="'text-area'"
+        [name]="'text-area'"
+        [placeholder]="'Enter text here'"
+        [disabled]="true"
+        [(ngModel)]="textAreaValue"
+      ></fb-cva-text-area>
+    </grid-col>
+    <grid-col span="12">
+      <p>TODO: Fix/review text input styling, add label styling</p>
+      <fb-cva-text-input
+        [label]="'Text input'"
+        [id]="'text-input'"
+        [name]="'text-input'"
+        [placeholder]="'Enter text here'"
+        [maxLength]="10"
+        [required]="true"
+        [autocomplete]="'off'"
+        [(ngModel)]="textInputValue"
+      ></fb-cva-text-input>
+      <fb-cva-text-input
+        [label]="'Text input'"
+        [id]="'text-input'"
+        [name]="'text-input'"
+        [placeholder]="'Enter text here'"
+        [maxLength]="10"
+        [required]="true"
+        [disabled]="true"
+        [autocomplete]="'off'"
+        [(ngModel)]="textInputValue"
+      ></fb-cva-text-input>
+    </grid-col>
+  </grid-row>
+</grid>
+
+
+
+

@@ -1,0 +1,64 @@
+@use '../functions/calc-rem' as *;
+
+$breakpoint-main: calcRem(768px);
+
+$grid-columns: 24;
+$grid-width: calcRem(1200px);
+
+$grid-padding-large: 32px;
+$grid-padding-medium: 24px;
+$grid-padding-small: 16px;
+
+$grid-col-gap-large: 32px;
+$grid-col-gap-medium: 16px;
+$grid-col-gap-small: 12px;
+
+$grid-row-gap-large: 32px;
+$grid-row-gap-medium: 24px;
+$grid-row-gap-small: 24px;
+
+$breakpoints: (
+  xl: (
+    value: calcRem(1280px),
+    padding: $grid-padding-large,
+    column-gap: $grid-col-gap-large,
+    row-gap: $grid-row-gap-large,
+  ),
+  lg: (
+    value: calcRem(1024px),
+    padding: $grid-padding-medium,
+    column-gap: $grid-col-gap-medium,
+    row-gap: $grid-row-gap-medium,
+  ),
+  md: (
+    value: calcRem(768px),
+    padding: $grid-padding-medium,
+    column-gap: $grid-col-gap-medium,
+    row-gap: $grid-row-gap-medium,
+  ),
+  sm: (
+    value: calcRem(520px),
+    padding: $grid-padding-small,
+    column-gap: $grid-col-gap-small,
+    row-gap: $grid-row-gap-small,
+  ),
+  xs: (
+    value: calcRem(380px),
+    padding: $grid-padding-small,
+    column-gap: $grid-col-gap-small,
+    row-gap: $grid-row-gap-small,
+  ),
+  xxs: (
+    value: calcRem(320px),
+    padding: $grid-padding-small,
+    column-gap: $grid-col-gap-small,
+    row-gap: $grid-row-gap-small,
+  ),
+  xxxs: (
+    value: calcRem(250px),
+    padding: $grid-padding-small,
+    column-gap: $grid-col-gap-small,
+    row-gap: $grid-row-gap-small,
+  )
+)
+

@@ -1,0 +1,66 @@
+<div style="margin-bottom: 4rem;"></div>
+<grid>
+  <grid-row>
+    <grid-col span="8" lg="0">
+    </grid-col>
+    <grid-col span="8" lg="24">
+      <div class="card">
+        <form>
+          <h1>Create an account</h1>
+          <fb-cva-text-input
+            [label]="'Email'"
+            [id]="'email-input'"
+            [name]="'email-input'"
+            [placeholder]="'Email'"
+            [maxLength]="40"
+            [required]="true"
+            [autocomplete]="'off'"
+            [(ngModel)]="username"
+          ></fb-cva-text-input>
+          <div style="margin-bottom: 1rem;"></div>
+          <fb-cva-text-input
+            [label]="'Password'"
+            [id]="'password-input'"
+            [name]="'password-input'"
+            [placeholder]="'Password'"
+            [maxLength]="25"
+            [required]="true"
+            [autocomplete]="'off'"
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+          ></fb-cva-text-input>
+          <div style="margin-bottom: 1rem;"></div>
+          <fb-cva-text-input
+            [label]="'Mobile number'"
+            [id]="'mobile-number-input'"
+            [name]="'mobile-number-input'"
+            [placeholder]="'Mobile number'"
+            [maxLength]="15"
+            [required]="false"
+            [autocomplete]="'off'"
+            [type]="'tel'"
+            [(ngModel)]="phoneNumber"
+          ></fb-cva-text-input>
+          <div style="margin-bottom: 1rem;"></div>
+          <button type="button" (click)="signUp()" class="btn btn-success" [disabled]="loading || !username || !password">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+            Create account
+          </button>
+        </form>
+        @if ((vm$ | async)?.signUpErrorMessage) {
+          <div style="margin-bottom: 1rem;"></div>
+          <h2>There was a problem creating your account:</h2>
+          <p style="color: red;">{{ (vm$ | async)?.signUpErrorMessage }}</p>
+        }
+        <div style="margin-bottom: 1rem;"></div>
+        <h2>Already have an account?</h2>
+        <p>
+          <a [routerLink]="['/auth/sign-in']">Sign In</a>
+        </p>
+      </div>
+    </grid-col>
+    <grid-col span="8" md="0">
+    </grid-col>
+  </grid-row>
+</grid>
+

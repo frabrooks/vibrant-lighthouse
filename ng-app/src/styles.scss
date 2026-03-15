@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+@use 'global-definitions' as *;
+@use './styles/global-styling' as *;
+
 * {
     box-sizing: border-box;
 }
@@ -12,8 +15,87 @@ html {
 }
 
 body {
-    margin: 0;
-    height: 100%;
-    min-height: 100%;
-    padding-top: 82px;
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
 }
+
+p,
+span,
+label,
+input,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family;
+}
+
+
+label {
+  font: $font-sm;
+  display: block;
+  font-weight: bold;
+  padding-bottom: 4px;
+}
+
+textarea {
+  line-height: 1.4;
+}
+
+
+@each $breakpoint in map-keys($breakpoints) {
+
+  $value: map-deep-get($breakpoints, $breakpoint, 'value');
+
+  @media (max-width: $value) {
+    .#{$breakpoint}\:type-xxxs {
+      font: var(--font-xxxs, $font-xxxs);
+    }
+    .#{$breakpoint}\:type-xxs {
+      font: var(--font-xxs, $font-xxs);
+    }
+    .#{$breakpoint}\:type-xs {
+      font: var(--font-xs, $font-xs);
+    }
+    .#{$breakpoint}\:type-sm {
+      font: var(--font-sm, $font-sm);
+    }
+    .#{$breakpoint}\:type-md {
+      font: var(--font-md, $font-md);
+    }
+    .#{$breakpoint}\:type-lg {
+      font: var(--font-lg, $font-lg);
+    }
+    .#{$breakpoint}\:type-xl {
+      font: var(--font-xl, $font-xl);
+    }
+    .#{$breakpoint}\:type-xxl {
+      font: var(--font-xxl, $font-xxl);
+    }
+    .#{$breakpoint}\:type-xxxl {
+      font: var(--font-xxxl, $font-xxxl);
+    }
+    .#{$breakpoint}\:type-xxxxl {
+      font: var(--font-xxxxl, $font-xxxxl);
+    }
+  }
+}
+
+@media (max-width: $breakpoint-main) {
+  html:root {
+    --font-xxs: #{$font-xxxs};
+    --font-xs: #{$font-xxs};
+    --font-sm: #{$font-xs};
+    --font-md: #{$font-sm};
+    --font-lg: #{$font-md};
+    --font-xl: #{$font-lg};
+    --font-xxl: #{$font-xl};
+    --font-xxxl: #{$font-xxl};
+    --font-xxxxl: #{$font-xxxl};
+  }
+}
+

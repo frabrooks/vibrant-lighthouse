@@ -1,0 +1,35 @@
+
+@if (label) {
+  <label [htmlFor]="id" [innerHTML]="label" [class.required]="required"></label>
+}
+
+<ng-content></ng-content>
+
+<textarea #textarea
+  [id]="id"
+  [name]="name"
+  [maxLength]="maxLength"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  [autocomplete]="autocomplete"
+  [attr.autocorrect]="autocorrect"
+  [attr.data-lpignore]="dataLpIgnore"
+  [ngClass]="{
+    'auto-height': isAutoResizeEnabled,
+    'is-invalid': showErrorState
+  }"
+  (input)="onInput($event)"
+  (blur)="onBlur()"
+  ></textarea>
+
+@if (showCharacterLimit && maxLength) {
+  <p class="character-counter">
+    <span>{{  textarea?.value?.length || 0 }}</span> / {{ maxLength }}
+  </p>
+}
+
+@if (showErrorState && errorMessage) {
+  <p class="error-message" [innerHTML]="errorMessage"></p>
+}
+  

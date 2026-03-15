@@ -1,0 +1,56 @@
+<grid>
+  <grid-row>
+    <grid-col>
+      <h1>Manage your TODOs</h1>
+    </grid-col>
+  </grid-row>
+
+  <grid-row no-row-gap>
+    <grid-col span="12">
+      <p>You are logged in</p>
+      <button  (click)="testAuth()">Test auth</button>
+      <p></p>
+      <button  (click)="setUpTOTP()">Set up TOTP</button>
+      <fb-cva-text-area
+        [label]="'Text area'"
+        [id]="'text-area'"
+        [name]="'text-area'"
+        [placeholder]="'Enter text here'"
+        [heightMode]="'auto'"
+        [(ngModel)]="textAreaValue"
+      ></fb-cva-text-area>
+      <fb-cva-text-area
+        [label]="'Text area'"
+        [id]="'text-area'"
+        [name]="'text-area'"
+        [placeholder]="'Enter text here'"
+        [disabled]="true"
+        [(ngModel)]="textAreaValue"
+      ></fb-cva-text-area>
+    </grid-col>
+    <grid-col span="12">
+      <fb-cva-text-input
+        [label]="'Text input'"
+        [id]="'text-input'"
+        [name]="'text-input'"
+        [placeholder]="'Enter text here'"
+        [maxLength]="10"
+        [required]="true"
+        [autocomplete]="'off'"
+        [(ngModel)]="textInputValue"
+      ></fb-cva-text-input>
+      <fb-cva-text-input
+        [label]="'Text input'"
+        [id]="'text-input'"
+        [name]="'text-input'"
+        [placeholder]="'Enter text here'"
+        [maxLength]="10"
+        [required]="true"
+        [disabled]="true"
+        [autocomplete]="'off'"
+        [(ngModel)]="textInputValue"
+      ></fb-cva-text-input>
+    </grid-col>
+  </grid-row>
+</grid>
+

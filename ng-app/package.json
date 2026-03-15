@@ -1,12 +1,12 @@
 {
-  "name": "ng-app",
+  "name": "quad-todo",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --poll 500",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "ng": "node_modules/.bin/ng",
+    "start": "node_modules/.bin/ng serve --host 0.0.0.0 --poll 500",
+    "build": "node_modules/.bin/ng build",
+    "watch": "node_modules/.bin/ng build --watch --configuration development",
+    "test": "node_modules/.bin/ng test"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +23,9 @@
     "@ngrx/router-store": "^18.1.1",
     "@ngrx/store": "^18.1.1",
     "@ngrx/store-devtools": "^18.1.1",
-    "aws-amplify": "^5.0.22",
+    "aws-amplify": "^6.9.0",
+    "ngrx-store-localstorage": "^18.0.0",
+    "qrcode": "^1.5.4",
     "rxjs": "7.5",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
@@ -34,6 +36,7 @@
     "@angular/compiler-cli": "^18.2.12",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
+    "@types/qrcode": "^1.5.5",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",

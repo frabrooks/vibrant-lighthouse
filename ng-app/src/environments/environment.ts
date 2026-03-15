@@ -3,11 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  appIdentifier: require('../../package.json').name,
+  appVersion: require('../../package.json').version,
   production: false,
   apiurl: 'http://localhost:8000',
   cognito: {
-    userPoolId: 'eu-west-2_6I00asBfu',
-    userPoolWebClientId: '5emadr5f2c5e6kdsel3pljml5o'
+    Cognito: {
+      userPoolId: 'eu-west-2_6I00asBfu',
+      userPoolClientId: '5emadr5f2c5e6kdsel3pljml5o'
+    }
   }
 };
 

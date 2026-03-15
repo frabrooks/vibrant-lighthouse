@@ -1,0 +1,27 @@
+
+@if (label) {
+  <label [htmlFor]="id" [innerHTML]="label" [class.required]="required"></label>
+}
+
+<ng-content></ng-content>
+
+<input #inputElement
+  [id]="id"
+  [name]="name"
+  [type]="type"
+  [maxLength]="maxLength"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  [autocomplete]="autocomplete"
+  [attr.data-lpignore]="dataLpIgnore"
+  [ngClass]="{
+    'is-invalid': showErrorState
+  }"
+  (input)="onInput($event)"
+  (blur)="onBlur()"
+  />
+
+@if (showErrorState && errorMessage) {
+  <p class="error-message" [innerHTML]="errorMessage"></p>
+}

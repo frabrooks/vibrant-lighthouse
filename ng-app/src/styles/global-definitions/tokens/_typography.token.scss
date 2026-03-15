@@ -1,0 +1,29 @@
+@use '../functions/calc-rem' as *;
+
+$font-family: 'Merriweather', serif;
+
+$font-size-xxxs: calcRem(12px);
+$font-size-xxs: calcRem(14px);
+$font-size-xs: calcRem(16px);
+$font-size-sm: calcRem(18px);
+$font-size-md: calcRem(20px);
+$font-size-lg: calcRem(24px);
+$font-size-xl: calcRem(32px);
+$font-size-xxl: calcRem(48px);
+$font-size-xxxl: calcRem(64px);
+$font-size-xxxxl: calcRem(96px);
+
+$line-height: 1.4;
+
+$font-xxxs: #{$font-size-xxxs}/#{$line-height} $font-family;
+$font-xxs: #{$font-size-xxs}/#{$line-height} $font-family;
+$font-xs: #{$font-size-xs}/#{$line-height} $font-family;
+$font-sm: #{$font-size-sm}/#{$line-height} $font-family;
+$font-md: #{$font-size-md}/#{$line-height} $font-family;
+$font-lg: #{$font-size-lg}/#{$line-height} $font-family;
+$font-xl: #{$font-size-xl}/#{$line-height} $font-family;
+$font-xxl: #{$font-size-xxl}/#{$line-height} $font-family;
+$font-xxxl: #{$font-size-xxxl}/#{$line-height} $font-family;
+$font-xxxxl: #{$font-size-xxxxl}/#{$line-height} $font-family;
+
+

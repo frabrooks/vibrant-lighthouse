@@ -1,0 +1,18 @@
+
+
+
+
+grid-row {
+  display: grid;
+  width: 100%;
+
+  grid-template-columns: repeat(#{var(--grid-cols, 12)}, 1fr);
+
+  grid-column-gap: var(--grid-column-gap);
+  grid-row-gap: var(--grid-row-gap);
+
+  &[no-row-gap] {
+    grid-row-gap: 0;
+  }
+}
+

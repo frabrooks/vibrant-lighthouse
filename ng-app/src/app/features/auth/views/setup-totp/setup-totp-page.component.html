@@ -1,0 +1,43 @@
+<div style="margin-bottom: 4rem;"></div>
+<grid *ngIf="(vm$ | async) as vm">
+  <grid-row>
+    <grid-col span="8" lg="0">
+    </grid-col>
+    <grid-col span="8" lg="24">
+      <div class="card">
+        <h1>Setup TOTP</h1>
+
+        <p>Scan the QR code below with your authenticator app to setup TOTP</p>
+
+        <div style="margin-bottom: 1rem;"></div>
+
+        <div *ngIf="totpQRCodeSrc" style="text-align: center;">
+          <img [src]="totpQRCodeSrc" alt="TOTP QR Code" style="width: 100%; max-width: 300px; height: auto;">
+        </div>
+
+        <div style="margin-bottom: 1rem;"></div>
+
+        <p>Once you have scanned the QR code, enter the code from your authenticator app below</p>
+
+        <fb-cva-text-input
+          [label]="'Code'"
+          [id]="'totp-code'"
+          [name]="'totp-code'"
+          [placeholder]="'Code'"
+          [maxLength]="18"
+          [required]="true"
+          [autocomplete]="'off'"
+          [(ngModel)]="verifyTotpSetupInput.code"
+        ></fb-cva-text-input>
+        <div style="margin-bottom: 1rem;"></div>
+        <button type="button" (click)="verifyTotpSetup()" class="btn btn-success" [disabled]="loading">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+          Submit
+        </button>
+      </div>
+    </grid-col>
+    <grid-col span="8" md="0">
+    </grid-col>
+  </grid-row>
+</grid>
+

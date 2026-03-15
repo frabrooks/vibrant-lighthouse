@@ -1,0 +1,78 @@
+
+@use 'global-definitions' as *;
+
+
+:root {
+
+  --primary-color: #333;
+
+  --grid-cols: #{$grid-columns};
+  --grid-width: #{$grid-width};
+  --grid-padding: #{$grid-padding-large};
+  --grid-column-gap: #{$grid-col-gap-large};
+  --grid-row-gap: #{$grid-row-gap-large};
+
+  // --text-area--height: 4rem;
+  // --text-area--padding: 0 16px;
+  // --text-area--color: var(--primary-color, #333);
+  // --text-area--placeholder-color: var(--primary-color--light, #ccc);
+  // --text-area--background-color: #fff;
+  // --text-area--border: 1px solid #ccc;
+  // --text-area--border-radius: 4px;
+  // --text-area--hover-border: var(--text-area--border);
+  // --text-area--hover-outline: none;
+  // --text-area--focus-border: 2px solid var(--primary-color, #333);
+  // --text-area--focus-outline: none;
+  // --text-area--disabled-background-color: #f9f9f9;
+  // --text-area--disabled-border: 1px solid #ccc;
+  // --text-area--disabled-color: #ccc;
+
+  // --text-area--error-border: 2px solid var(--error-color, #f00);
+  // --text-area--error-outline: none;
+  // --text-area--error-color: var(--primary-color, #333);
+
+  // --text-input--height: 2rem;
+  // --text-input--padding: 0 16px;
+  // --text-input--color: var(--primary-color, #333);
+  // --text-input--placeholder-color: var(--primary-color--light, #ccc);
+  // --text-input--background-color: #fff;
+  // --text-input--border: 1px solid #ccc;
+  // --text-input--border-radius: 4px;
+  // --text-input--hover-border: var(--text-input--border);
+  // --text-input--hover-outline: none;
+  // --text-input--focus-border: 2px solid var(--primary-color, #333);
+  // --text-input--focus-outline: none;
+  // --text-input--disabled-background-color: #f9f9f9;
+  // --text-input--disabled-border: 1px solid #ccc;
+  // --text-input--disabled-color: #ccc;
+
+  // --text-input--error-border: 2px solid var(--error-color, #f00);
+  // --text-input--error-outline: none;
+  // --text-input--error-color: var(--primary-color, #333);
+
+}
+
+
+@each $breakpoint in map-keys($breakpoints) {
+
+  $value: map-deep-get($breakpoints, $breakpoint, 'value');
+  $padding: map-deep-get($breakpoints, $breakpoint, 'padding');
+  $column-gap: map-deep-get($breakpoints, $breakpoint, 'column-gap');
+  $row-gap: map-deep-get($breakpoints, $breakpoint, 'row-gap');
+
+
+  @media (max-width: $value) {
+    
+    html:root {
+      --grid-padding: #{$padding};
+      --grid-column-gap: #{$column-gap};
+      --grid-row-gap: #{$row-gap};
+    }
+    
+  }
+
+}
+
+
+
+

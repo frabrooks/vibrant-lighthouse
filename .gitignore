@@ -3,6 +3,6 @@ venv/
 .env
 .vscode
 .flake8
-docker-compose-dev.yml
+docker-compose.dev.yml
 userdata.txt
 node_modules

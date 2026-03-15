@@ -1,0 +1,51 @@
+<div style="margin-bottom: 4rem;"></div>
+<grid *ngIf="(vm$ | async) as vm">
+  <grid-row>
+    <grid-col span="8" lg="0">
+    </grid-col>
+    <grid-col span="8" lg="24">
+      <div class="card">
+        <h1>Select your preferred MFA method</h1>
+
+        @if (vm.availableChallenges.length > 0) {
+          <div *ngFor="let challenge of vm.availableChallenges">
+            <p>{{ challenge }}</p>
+          </div>
+        } @else {
+          <p *ngIf="!vm.allowedMFATypes.length">No Challenges available</p>
+        }
+
+        @if (vm.allowedMFATypes.length > 0) {
+          <div *ngFor="let mfaType of vm.allowedMFATypes">
+            <p>{{ mfaType }}</p>
+          </div>
+        } @else {
+          <p *ngIf="!vm.availableChallenges.length">No Challenges available</p>
+        }
+
+        <fb-cva-text-input
+          [label]="'Challenge Response'"
+          [id]="'challenge-response'"
+          [name]="'challenge-response'"
+          [placeholder]="'EMAIL | SMS | TOTP'"
+          [maxLength]="18"
+          [required]="true"
+          [autocomplete]="'off'"
+          [(ngModel)]="confirmSignInInput.challengeResponse"
+        ></fb-cva-text-input>
+        <div style="margin-bottom: 1rem;"></div>
+        @if (!isAcceptedInput) {
+          <p style="color: red;">Input must be EMAIL, SMS, or TOTP</p>
+          <div style="margin-bottom: 1rem;"></div>
+        }
+        <button type="button" (click)="respondWithSelection()" class="btn btn-success" [disabled]="loading">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+          Make selection
+        </button>
+      </div>
+    </grid-col>
+    <grid-col span="8" md="0">
+    </grid-col>
+  </grid-row>
+</grid>
+

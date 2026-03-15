@@ -28,6 +28,7 @@
             },
             "index": "src/index.html",
             "polyfills": [
+              "zone.js",
               "src/polyfills.ts"
             ],
             "tsConfig": "tsconfig.app.json",
@@ -36,6 +37,11 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "styles": [
               "src/styles.scss"
             ],
@@ -95,7 +101,6 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
