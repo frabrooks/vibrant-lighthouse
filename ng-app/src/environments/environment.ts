@@ -1,18 +1,25 @@
+import { getRuntimeConfig } from '../app/runtime-config';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+
+const runtimeConfig = getRuntimeConfig({
+  apiurl: 'http://localhost:8000',
+  cognito: {
+    Cognito: {
+      userPoolId: 'SET IN LOCAL',
+      userPoolClientId: 'SET IN LOCAL'
+    }
+  }
+});
 
 export const environment = {
   appIdentifier: require('../../package.json').name,
   appVersion: require('../../package.json').version,
   production: false,
-  apiurl: 'http://localhost:8000',
-  cognito: {
-    Cognito: {
-      userPoolId: 'eu-west-2_6I00asBfu',
-      userPoolClientId: '5emadr5f2c5e6kdsel3pljml5o'
-    }
-  }
+  apiurl: runtimeConfig.apiurl,
+  cognito: runtimeConfig.cognito
 };
 
 /*

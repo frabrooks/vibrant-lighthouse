@@ -1,7 +1,0 @@
-# Single container cron
-
-1 */12 1 * * echo "" > /var/log/cron/certbot_cron 2>&1
-# -> Clear log on 1st minute of 12th hour of every month
-
-2 */12 * * * /root/cert-renew-script.sh  >> /var/log/cron/certbot_cron 2>&1
-# -> 2nd minute every 12 hours

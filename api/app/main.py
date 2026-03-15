@@ -6,9 +6,10 @@ from fastapi_cognito import CognitoAuth, CognitoSettings, CognitoToken
 from sqlalchemy.orm import Session
 
 # Local imports
-from . import models, schemas
+from . import schemas
 from .config import settings
-from .database import get_db
+from database import models
+from database.session import get_db
 
 cognito_eu = CognitoAuth(settings=CognitoSettings.from_global_settings(settings))
 origins = ["*"]
@@ -27,7 +28,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return "Eisen four-quad todo API v.1.0.3"
+    return "Quad todo API v.1.0.3"
 
 
 @app.get("/todo", status_code=status.HTTP_200_OK, response_model=List[schemas.GetTodo])

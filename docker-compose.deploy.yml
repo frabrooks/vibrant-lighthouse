@@ -1,0 +1,32 @@
+services:
+  api:
+    image: ${DOCKER_IMAGE}
+    container_name: vibrant-lighthouse-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOSTNAME: ${DATABASE_HOSTNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_SCHEMA: ${DATABASE_SCHEMA}
+      COGNITO_REGION: ${COGNITO_REGION}
+      COGNITO_USERPOOL_ID: ${COGNITO_USERPOOL_ID}
+      COGNITO_APP_CLIENT_ID: ${COGNITO_APP_CLIENT_ID}
+    networks:
+      - platform
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: ${PLATFORM_NETWORK}
+      traefik.http.routers.vibrant-lighthouse-api.rule: Host(`${API_HOST}`)
+      traefik.http.routers.vibrant-lighthouse-api.entrypoints: websecure
+      traefik.http.routers.vibrant-lighthouse-api.tls: "true"
+      traefik.http.routers.vibrant-lighthouse-api.tls.certresolver: letsencrypt
+      traefik.http.services.vibrant-lighthouse-api.loadbalancer.server.port: "8000"
+
+networks:
+  platform:
+    external: true
+    name: ${PLATFORM_NETWORK}

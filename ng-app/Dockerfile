@@ -1,12 +1,22 @@
-#stage 1
-FROM node:18.20-alpine
+FROM node:20-alpine AS build
 
 WORKDIR /usr/src/app
 
+COPY package*.json ./
+
+RUN npm ci
+
 COPY . .
 
-RUN npm install
+RUN npm run build -- --configuration production
 
-RUN npm run build --prod
+FROM nginx:1.27-alpine
 
-EXPOSE 4200 49153
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /usr/src/app/dist/ng-app/browser /usr/share/nginx/html
+COPY runtime-config.template.js /opt/quad-todo/runtime-config.template.js
+COPY docker-entrypoint.d/40-runtime-config.sh /docker-entrypoint.d/40-runtime-config.sh
+
+RUN chmod +x /docker-entrypoint.d/40-runtime-config.sh
+
+EXPOSE 80
