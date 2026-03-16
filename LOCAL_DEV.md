@@ -33,6 +33,7 @@ DATABASE_SCHEMA=vibrant_lighthouse
 COGNITO_REGION=eu-west-2
 COGNITO_USERPOOL_ID=replace-me
 COGNITO_APP_CLIENT_ID=replace-me
+CORS_ALLOWED_ORIGINS=http://localhost:4200
 ```
 
 ## Option 2: Mixed local workflow with Python venv

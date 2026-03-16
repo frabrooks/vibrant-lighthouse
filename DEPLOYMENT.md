@@ -43,6 +43,7 @@ Both backend Cognito settings and frontend runtime config are environment-driven
 - `COGNITO_REGION`
 - `COGNITO_USERPOOL_ID`
 - `COGNITO_APP_CLIENT_ID`
+- `CORS_ALLOWED_ORIGINS`
 - `FRONTEND_API_URL`
 - `FRONTEND_COGNITO_USER_POOL_ID`
 - `FRONTEND_COGNITO_APP_CLIENT_ID`

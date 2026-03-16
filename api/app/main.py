@@ -12,7 +12,11 @@ from database import models
 from database.session import get_db
 
 cognito_eu = CognitoAuth(settings=CognitoSettings.from_global_settings(settings))
-origins = ["*"]
+origins = [
+    origin.strip()
+    for origin in settings.cors_allowed_origins.split(",")
+    if origin.strip()
+]
 
 
 app = FastAPI()

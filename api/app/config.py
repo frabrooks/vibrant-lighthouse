@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     cognito_region: str
     cognito_userpool_id: str
     cognito_app_client_id: str
+    cors_allowed_origins: str = "http://localhost:4200"
     userpools: Dict[str, Dict[str, Any]] = Field(default_factory=dict)
     check_expiration: bool = True
     jwt_header_prefix: str = "Bearer"
