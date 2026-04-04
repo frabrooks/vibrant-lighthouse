@@ -1,0 +1,39 @@
+name: Start App On VM
+
+on:
+  workflow_dispatch:
+
+jobs:
+  start-app:
+    name: Start API and frontend on VM
+    runs-on: ubuntu-latest
+    env:
+      REMOTE_DIR: /home/${{ secrets.VM_USER }}/vibrant-lighthouse
+
+    steps:
+      - name: Start app services on VM
+        uses: appleboy/ssh-action@v1.2.4
+        env:
+          REMOTE_DIR: ${{ env.REMOTE_DIR }}
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          port: ${{ secrets.VM_SSH_PORT || '22' }}
+          envs: REMOTE_DIR
+          script: |
+            set -eu
+
+            if [ ! -d "$REMOTE_DIR" ]; then
+              echo "Remote app directory not found at $REMOTE_DIR; nothing to start."
+              exit 0
+            fi
+
+            cd "$REMOTE_DIR"
+
+            if [ ! -f "docker-compose.deploy.yml" ]; then
+              echo "docker-compose.deploy.yml not found in $REMOTE_DIR; nothing to start."
+              exit 0
+            fi
+
+            docker compose -f docker-compose.deploy.yml up -d api frontend
